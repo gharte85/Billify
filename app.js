@@ -1,23 +1,27 @@
-var restify = require('restify');  
-var server = restify.createServer({ name: 'Billify' });
+var util = require('util'),
+	assert = require('assert'),
+    restify = require('restify'),
+    restifyValidator = require('restify-validator'),
+    server = restify.createServer({ name: 'Billify' });
+
 server.use(restify.bodyParser());
+server.use(restify.queryParser());
+server.use(restifyValidator);
 
 /*
+* TODO: Create a client controller
+*
 var Client = require('./controllers/Client').Client;
 var Client = new Client();
 */
+
 var Invoice = require('./controllers/Invoice').Invoice;
 var Invoice = new Invoice();
 
-function postInvoice(req, res) {
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Headers", "X-Requested-With");
-	res.send(req.params);
 
-	Invoice.createInvoice(req.params);
-}
-
-server.post('/invoice/create', postInvoice);
+server.post('/invoice/create', function(req, res) {
+	Invoice.createInvoice(req, res);
+});
 
 
 server.listen(8080, function() {
