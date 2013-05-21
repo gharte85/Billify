@@ -11,9 +11,14 @@ var Invoice = new Invoice();
 
 //Invoice.createInvoice();
 
-server.get('/invoice/create', function(res, req, next) {
-	res.send(200, "Test");
-});
+function postInvoice(req, res) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "X-Requested-With");
+	res.send(req.params);
+}
+
+server.post('/invoice/create', postInvoice); // This now returns an empty object {}
+
 
 server.listen(8080, function() {
   console.log('%s listening at %s', server.name, server.url);
