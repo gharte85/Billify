@@ -9,15 +9,15 @@ var Client = new Client();
 var Invoice = require('./controllers/Invoice').Invoice;
 var Invoice = new Invoice();
 
-//Invoice.createInvoice();
-
 function postInvoice(req, res) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "X-Requested-With");
 	res.send(req.params);
+
+	Invoice.createInvoice(req.params);
 }
 
-server.post('/invoice/create', postInvoice); // This now returns an empty object {}
+server.post('/invoice/create', postInvoice);
 
 
 server.listen(8080, function() {

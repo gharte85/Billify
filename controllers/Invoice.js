@@ -14,11 +14,10 @@ var invoice = new InvoiceModel();
 * Begin Invoice Methods
 */
 
-Invoice.prototype.createInvoice = function() {
-	invoice._clientId = 1;
-	invoice.invoiceItems.push({ description: 'Cart and Checkout Pages', rate: 65, hours: 10, taskTotal: 650 });
-	invoice.total = 3250;
-	invoice.status = 'unpaid';
+Invoice.prototype.createInvoice = function(obj) {
+	invoice._clientId = obj._clientId;
+	invoice.total = obj.total;
+	invoice.status = obj.status;
 	invoice.save(function(err){});
 	console.log(invoice);
 }
